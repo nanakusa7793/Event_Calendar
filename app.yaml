@@ -1,0 +1,13 @@
+runtime: python311
+entrypoint: /bin/sh entrypoint.sh gunicorn -b :$PORT EventBoard.wsgi:application
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'EventBoard.settings'
+  DATABASE_URL: '/tmp/db.sqlite3'
+
+handlers:
+- url: /static
+  static_dir: static/
+
+- url: /.*
+  script: auto
